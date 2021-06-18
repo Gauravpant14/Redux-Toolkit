@@ -1,19 +1,19 @@
+import '../src/App.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { updateNameAsync, userAction } from './redux/actions/actions'
+import { ageAction, nameAction, updateAction } from './redux/slice/userSlice'
+// import { updateNameAsync, userAction } from './redux/actions/actions'
+
 function App() {
   const { name, age, status } = useSelector(state => { return state })
   const dispatch = useDispatch()
   const updateAge = () => {
-    dispatch({
-      type: "UPDATE_AGE",
-      payload: age + 5
-    })
+    dispatch(ageAction(age + 5))
   }
   const updateName = () => {
-    dispatch(updateNameAsync())
+    dispatch(nameAction("slice name"))
   }
   const updateStatus = () => {
-    dispatch(userAction("full stack Developer"))
+    dispatch(updateAction("full stack"))
   }
 
   return (
