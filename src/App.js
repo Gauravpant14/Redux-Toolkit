@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { userAction } from './redux/actions/actions'
+import { updateNameAsync, userAction } from './redux/actions/actions'
 function App() {
   const { name, age, status } = useSelector(state => { return state })
   const dispatch = useDispatch()
@@ -10,10 +10,7 @@ function App() {
     })
   }
   const updateName = () => {
-    dispatch({
-      type: "UPDATE_NAME",
-      payload: `${name} pant`
-    })
+    dispatch(updateNameAsync())
   }
   const updateStatus = () => {
     dispatch(userAction("full stack Developer"))
