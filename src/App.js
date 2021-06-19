@@ -1,10 +1,12 @@
 import '../src/App.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { ageAction, nameAction, updateAction } from './redux/slice/userSlice'
+import { ageAction, getNames, nameAction, updateAction } from './redux/slice/userSlice'
 // import { updateNameAsync, userAction } from './redux/actions/actions'
 
 function App() {
-  const { name, age, status } = useSelector(state => { return state })
+  const { name, age, status, allNames } = useSelector(state => {
+    return state.userSlice
+  })
   const dispatch = useDispatch()
   const updateAge = () => {
     dispatch(ageAction(age + 5))
@@ -15,13 +17,26 @@ function App() {
   const updateStatus = () => {
     dispatch(updateAction("full stack"))
   }
+  const fetchName = () => {
+    dispatch(getNames())
+  }
 
   return (
     <div className="App">
-      hello {name} your age is {age} and your are a {status}
-      <button onClick={() => updateAge()}>update age</button>
-      <button onClick={() => updateName()}>Change Name</button>
-      <button onClick={() => updateStatus()}>updateStatus()</button>
+      <div>
+        hello {name} your age is {age} and your are a {status}
+      </div>
+      <div>
+        <button onClick={() => updateAge()}>update age</button>
+        <button onClick={() => updateName()}>Change Name</button>
+        <button onClick={() => updateStatus()}>updateStatus()</button>
+
+      </div>
+      <button onClick={() => fetchName()}>Get Candidates</button>
+      <div>
+        {allNames?.map(({ name, id }) => <p key={id}>{name}</p>)}
+      </div>
+
     </div>
   );
 }
